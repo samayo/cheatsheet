@@ -1,1 +1,1 @@
-# cheetsheet
+# cheatsheet
