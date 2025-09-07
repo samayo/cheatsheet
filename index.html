@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,6 +54,7 @@
         <a href="#composer">Composer</a>
         <a href="#npm">NPM</a>
         <a href="#git">Git</a>
+        <a href="#gitflow">Git Flow</a>
         <a href="#paths">Paths</a>
       </aside>
       <div class="grid">
@@ -160,6 +160,23 @@
         <ul>
           <li><code>git init</code></li>
           <li><code>git add -A</code></li>
+        </ul>
+      </section>
+
+      <!-- Git Flow -->
+      <section class="pane" id="gitflow">
+        <h2 class="title">Git Flow</h2>
+        <ul>
+          <li><code>git switch -c feat/&lt;desc&gt;</code> <span class="hint"># start a feature branch (don’t commit on main)</span></li>
+          <li><code>git add -A &amp;&amp; git commit -m "wip: &lt;message&gt;"</code> <span class="hint"># save progress early/often</span></li>
+          <li><code>git push -u origin HEAD</code> <span class="hint"># back up the branch remotely</span></li>
+          <li><code>git stash push -m "wip: &lt;msg&gt;"</code> <span class="hint"># park messy changes without committing (optional)</span></li>
+          <li><code>git switch main &amp;&amp; git pull</code> <span class="hint"># update main before merging</span></li>
+          <li><code>git merge --squash feat/&lt;desc&gt; &amp;&amp; git commit -m "feat: &lt;summary&gt;"</code> <span class="hint"># squash-merge feature into main</span></li>
+          <li><code>git tag -a vX.Y.Z -m "release: &lt;notes&gt;"</code> <span class="hint"># mark a stable checkpoint (use semver)</span></li>
+          <li><code>git push origin main --tags</code> <span class="hint"># push code and tags</span></li>
+          <li><code>git revert --no-edit vX.Y.Z..HEAD</code> <span class="hint"># rollback everything after the tag if needed</span></li>
+          <li><code>git switch -c release/X.Y.Z vX.Y.Z</code> <span class="hint"># hotfix branch from the tag; tag vX.Y.Z+1 when done</span></li>
         </ul>
       </section>
 
