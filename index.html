@@ -1,288 +1,183 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cheatsheet</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        background-color: #f9f9f9;
-        color: #333;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>One‑Page Dev Cheatsheet</title>
+  <style>
+    :root{
+      --fg:#111;--muted:#666;--bg:#fff;--line:#ddd;
     }
-    h1, h2, h3 {
-        color: #202124;
-    }
-    .container {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-        gap: 20px;
-    }
-    nav {
-        position: sticky;
-        top: 20px;
-    }
-    nav ul {
-        list-style: none;
-        padding: 0;
-    }
-    nav ul li {
-        margin-bottom: 10px;
-    }
-    nav a {
-        text-decoration: none;
-        color: #1a73e8;
-    }
-    nav a:hover {
-        text-decoration: underline;
-    }
-    .search-box {
-        margin-bottom: 20px;
-    }
-    .command-section {
-        margin-bottom: 40px;
-    }
-    pre {
-        background-color: #e8f0fe;
-        padding: 10px;
-        border-radius: 5px;
-        position: relative;
-    }
-    .copy-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background-color: #1a73e8;
-        color: #fff;
-        border: none;
-        padding: 5px 8px;
-        cursor: pointer;
-        border-radius: 3px;
-        font-size: 12px;
-    }
-    .copy-btn:hover {
-        background-color: #1669bb;
-    }
-    code {
-        font-family: Consolas, monospace;
-        font-size: 14px;
-    }
-    .highlight {
-        background-color: yellow;
-    }
-</style>
+    html,body{height:100%;margin:0;}
+    body{font:11px/1.25 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;color:var(--fg);background:var(--bg);}    
+    .wrap{height:100vh;display:grid;grid-template-rows:auto 1fr auto;}
+    header{padding:6px 10px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;}
+    header h1{font-size:12px;margin:0;font-weight:700;}
+    header small{color:var(--muted);}    
+
+    .layout{display:grid;grid-template-columns:140px 1fr;height:calc(100vh - 54px);} 
+    .side{border-right:1px solid var(--line);padding:6px;overflow-y:auto;}
+    .side h3{margin:0 0 6px 0;font-size:11px}
+    .side a{display:block;padding:3px 2px;color:inherit;text-decoration:none;font-size:11px}
+    .side a:hover{text-decoration:underline}
+
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:8px;overflow:auto}
+    .pane{border:1px solid var(--line);border-radius:4px;padding:6px;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+    .title{font-weight:800;font-size:11px;margin:0 0 4px 0;letter-spacing:.2px}
+    .sub{font-weight:700;margin:6px 0 3px;color:#222}
+    ul{margin:0;padding:0;list-style:none}
+    li{display:block;margin:0 0 2px 0;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+    code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,Monaco,monospace;font-size:10px;background:#f7f7f7;border:1px solid #eee;border-radius:4px;padding:0 3px}
+    .hint{color:var(--muted)}
+    footer{padding:5px 8px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-size:10px}
+    .pane:target{border-color:#06c;box-shadow:0 0 0 1px #06c inset}
+    .pane:target .title{color:#06c}
+  </style>
 </head>
 <body>
+  <div class="wrap">
+    <header>
+      <h1>One‑Page Dev Cheatsheet</h1>
+      <small class="hint">Use left sidebar to jump quickly. Zoom out if needed. <span class="kbd">Ctrl</span>+<span class="kbd">F</span> also works.</small>
+    </header>
 
-<h1>Cheatsheet</h1>
+    <main class="layout">
+      <aside class="side">
+        <h3>Jump to</h3>
+        <a href="#nginx">NGINX</a>
+        <a href="#php">PHP</a>
+        <a href="#mariadb">MariaDB</a>
+        <a href="#utils">Utils</a>
+        <a href="#letsencrypt">Let's Encrypt</a>
+        <a href="#ssh">SSH</a>
+        <a href="#mysql">MySQL</a>
+        <a href="#composer">Composer</a>
+        <a href="#npm">NPM</a>
+        <a href="#git">Git</a>
+        <a href="#paths">Paths</a>
+      </aside>
+      <div class="grid">
 
-<div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search commands..." style="width: 100%; padding: 10px; font-size: 16px;">
-</div>
-
-<div class="container">
-    <nav>
-        <h2>Categories</h2>
-        <ul>
-            <li><a href="#nginx">NGINX</a></li>
-            <li><a href="#php">PHP</a></li>
-            <li><a href="#mariadb">MariaDB</a></li>
-            <li><a href="#utils">Utils</a></li>
-            <li><a href="#letsencrypt">Let's Encrypt</a></li>
-            <li><a href="#ssh">SSH Configuration</a></li>
-            <li><a href="#mysql">MySQL Commands</a></li>
-            <li><a href="#composer">Composer Commands</a></li>
-            <li><a href="#npm">Publishing NPM Library</a></li>
+      <!-- NGINX -->
+      <section class="pane" id="nginx">
+        <h2 class="title">NGINX</h2>
+        <h3 class="sub">Install/Update</h3>
+        <ul class="cols-compact">
+          <li><code>sudo apt update</code></li>
+          <li><code>sudo apt upgrade -y</code></li>
+          <li><code>sudo apt install nginx -y</code></li>
         </ul>
-    </nav>
+        <h3 class="sub">Start/Enable</h3>
+        <ul>
+          <li><code>sudo systemctl start nginx</code></li>
+          <li><code>sudo systemctl enable nginx</code></li>
+        </ul>
+        <h3 class="sub">Config</h3>
+        <ul>
+          <li><code>sudo vim /etc/nginx/nginx.conf</code></li>
+          <li><code>sudo nginx -t</code></li>
+          <li><code>sudo systemctl reload nginx</code></li>
+        </ul>
+      </section>
 
-    <div>
-        <!-- NGINX Section -->
-        <div class="command-section" id="nginx">
-            <h2>NGINX</h2>
-            <h3>Update and Install NGINX</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt upgrade -y</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install nginx -y</code></pre>
-            </div>
-            <h3>Start and Enable NGINX</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl start nginx</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl enable nginx</code></pre>
-            </div>
-            <h3>Configure NGINX</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo vim /etc/nginx/nginx.conf</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo nginx -t</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl reload nginx</code></pre>
-            </div>
-        </div>
+      <!-- PHP 8.2 -->
+      <section class="pane" id="php">
+        <h2 class="title">PHP 8.2</h2>
+        <h3 class="sub">Install</h3>
+        <ul>
+          <li><code>sudo apt install php8.2 php8.2-fpm -y</code></li>
+          <li><code>sudo apt install php8.2-common php8.2-mysql ...</code></li>
+        </ul>
+      </section>
 
-        <!-- PHP Section -->
-        <div class="command-section" id="php">
-            <h2>PHP</h2>
-            <h3>Install PHP 8.2 and Extensions</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install php8.2 php8.2-fpm -y</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install php8.2-common php8.2-mysql php8.2-xml php8.2-xmlrpc php8.2-curl php8.2-gd php8.2-imagick php8.2-cli php8.2-dev php8.2-imap php8.2-mbstring php8.2-opcache php8.2-soap php8.2-zip php8.2-intl -y</code></pre>
-            </div>
-            <h3>Check PHP Version</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>php -v</code></pre>
-            </div>
-            <h3>Edit PHP Configuration (Optional)</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo vim /etc/php/8.2/fpm/php.ini</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl restart php8.2-fpm</code></pre>
-            </div>
-        </div>
+      <!-- MariaDB -->
+      <section class="pane" id="mariadb">
+        <h2 class="title">MariaDB</h2>
+        <ul>
+          <li><code>sudo apt install mariadb-server -y</code></li>
+          <li><code>sudo mysql_secure_installation</code></li>
+        </ul>
+      </section>
 
-        <!-- MariaDB Section -->
-        <div class="command-section" id="mariadb">
-            <h2>MariaDB</h2>
-            <h3>Install and Secure MariaDB</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install mariadb-server -y</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo mysql_secure_installation</code></pre>
-            </div>
-            <h3>Start and Enable MariaDB</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl start mariadb</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl enable mariadb</code></pre>
-            </div>
-            <h3>Access MariaDB Shell</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo mysql -u root -p</code></pre>
-            </div>
-        </div>
+      <!-- Utils -->
+      <section class="pane" id="utils">
+        <h2 class="title">Utils</h2>
+        <ul>
+          <li><code>sudo apt install wget git curl zip unzip -y</code></li>
+          <li><code>tar -czf site.tgz /var/www/site</code></li>
+        </ul>
+      </section>
 
-        <!-- Utils Section -->
-        <div class="command-section" id="utils">
-            <h2>Utils</h2>
-            <h3>Install Common Utilities</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install wget git curl zip unzip net-tools -y</code></pre>
-            </div>
-        </div>
+      <!-- Let's Encrypt -->
+      <section class="pane" id="letsencrypt">
+        <h2 class="title">Let's Encrypt</h2>
+        <ul>
+          <li><code>sudo snap install --classic certbot</code></li>
+          <li><code>sudo certbot --nginx</code></li>
+        </ul>
+      </section>
 
-        <!-- Let's Encrypt Section -->
-        <div class="command-section" id="letsencrypt">
-            <h2>Let's Encrypt</h2>
-            <h3>Install Certbot</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install snapd -y</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo snap install core; sudo snap refresh core</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo snap install --classic certbot</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo ln -s /snap/bin/certbot /usr/bin/certbot</code></pre>
-            </div>
-            <h3>Obtain and Manage Certificates</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo certbot --nginx</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>echo "0 12 * * * /usr/bin/certbot renew --quiet"</code></pre>
-            </div>
-        </div>
+      <!-- SSH -->
+      <section class="pane" id="ssh">
+        <h2 class="title">SSH</h2>
+        <ul>
+          <li><code>sudo apt install openssh-server -y</code></li>
+          <li><code>scp file user@host:/path/</code></li>
+        </ul>
+      </section>
 
-        <!-- SSH Configuration Section -->
-        <div class="command-section" id="ssh">
-            <h2>SSH Configuration</h2>
-            <h3>Install and Configure SSH</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>sudo apt update</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo apt install openssh-server -y</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl status ssh</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo vim /etc/ssh/sshd_config</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl restart ssh</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>sudo systemctl enable ssh</code></pre>
-            </div>
-        </div>
+      <!-- MySQL -->
+      <section class="pane" id="mysql">
+        <h2 class="title">MySQL SQL</h2>
+        <ul>
+          <li><code>CREATE DATABASE db;</code></li>
+          <li><code>mysql -u user -p db < dump.sql</code></li>
+        </ul>
+      </section>
 
-        <!-- MySQL Commands Section -->
-        <div class="command-section" id="mysql">
-            <h2>MySQL Commands</h2>
-            <h3>Database and User Management</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>CREATE DATABASE your_database_name;</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>CREATE USER 'your_username'@'localhost' IDENTIFIED BY 'your_password';</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>GRANT ALL PRIVILEGES ON your_database_name.* TO 'your_username'@'localhost';</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>FLUSH PRIVILEGES;</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>DROP USER 'username'@'hostname';</code></pre>
-            </div>
-            <h3>Import Database from File</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>mysql -u username -p database_name &lt; file.sql</code></pre>
-            </div>
-        </div>
+      <!-- Composer -->
+      <section class="pane" id="composer">
+        <h2 class="title">Composer</h2>
+        <ul>
+          <li><code>composer install</code></li>
+          <li><code>composer update</code></li>
+        </ul>
+      </section>
 
-        <!-- Composer Commands Section -->
-        <div class="command-section" id="composer">
-            <h2>Composer Commands</h2>
-            <h3>Common Composer Commands</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>composer create-project vendor/package</code> - Create a new project</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer require vendor/package</code> - Require a package</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer update</code> - Update all packages</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer remove vendor/package</code> - Remove a package</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer install</code> - Install dependencies</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer show</code> - Show installed packages</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer validate</code> - Validate composer.json</code></pre>
-                <pre><button class="copy-btn">Copy</button><code>composer search keyword</code> - Search for packages</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer dump-autoload -o</code> - Optimize autoload</pre>
-                <pre><button class="copy-btn">Copy</button><code>composer run-script scriptname</code> - Run scripts</pre>
-            </div>
-        </div>
+      <!-- NPM -->
+      <section class="pane" id="npm">
+        <h2 class="title">NPM Publish</h2>
+        <ul>
+          <li><code>npm version patch</code></li>
+          <li><code>npm publish</code></li>
+        </ul>
+      </section>
 
-        <!-- Publishing NPM Library Section -->
-        <div class="command-section" id="npm">
-            <h2>Publishing NPM Library</h2>
-            <h3>Versioning and Publishing</h3>
-            <div class="command">
-                <pre><button class="copy-btn">Copy</button><code>npm version [patch|minor|major]</code> - Updates package.json version</pre>
-                <pre><button class="copy-btn">Copy</button><code>git tag {tag.version.number} -m "new entry"</code> - Update git tag</pre>
-                <pre><button class="copy-btn">Copy</button><code>git push origin {tag.version.number}</code> - Push tag</pre>
-                <pre><button class="copy-btn">Copy</button><code>npm login</code> - Login to NPM</pre>
-                <pre><button class="copy-btn">Copy</button><code>npm publish</code> - Publish to NPM</pre>
-            </div>
-        </div>
-    </div>
-</div>
+      <!-- Git -->
+      <section class="pane" id="git">
+        <h2 class="title">Git Basics</h2>
+        <ul>
+          <li><code>git init</code></li>
+          <li><code>git add -A</code></li>
+        </ul>
+      </section>
 
-<script>
-    // Copy to Clipboard Functionality
-    document.querySelectorAll('.copy-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const code = button.nextElementSibling.innerText;
-            navigator.clipboard.writeText(code).then(() => {
-                button.innerText = 'Copied!';
-                setTimeout(() => {
-                    button.innerText = 'Copy';
-                }, 2000);
-            });
-        });
-    });
+      <!-- Paths -->
+      <section class="pane" id="paths">
+        <h2 class="title">Paths & Tips</h2>
+        <ul>
+          <li><code>/var/www/&lt;site&gt;</code></li>
+          <li><code>/etc/nginx/sites-available</code></li>
+        </ul>
+      </section>
 
-    // Search Functionality
-    const searchInput = document.getElementById('searchInput');
-    searchInput.addEventListener('keyup', () => {
-        const filter = searchInput.value.toLowerCase();
-        const commands = document.querySelectorAll('.command-section');
-        commands.forEach(section => {
-            let text = section.innerText.toLowerCase();
-            if (text.includes(filter)) {
-                section.style.display = '';
-            } else {
-                section.style.display = 'none';
-            }
-        });
-    });
-</script>
+      </div>
+    </main>
 
+    <footer>
+      <div class="hint">v2 • now with sidebar navigation • edit as index.html</div>
+    </footer>
+  </div>
 </body>
 </html>
